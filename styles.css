@@ -2,7 +2,7 @@
 
 body {
     margin: 0;
-    background-color: #211D21;
+    background-color: #232323;
 }
 
 .main_container {
@@ -24,11 +24,19 @@ body {
     grid-area: header;
 }
 
+.main{
+    background-color: #484646;
+    display: flex;
+    padding: auto;
+    
+}
+
 .maingame {
     grid-area: maingame; 
     display: grid;
-    grid-template-columns: 31.25% 7.5% 7.5% 7.5% 7.5% 7.5% 31.25%; 
-    grid-template-rows: (10% 17.5% 5% 17.5% 5% 17.5% 5% 17.5% 10%);
+    grid-template-columns: auto 75px auto;
+    grid-template-rows: auto 112.5px 5% 112.5px 5% 112.5px 5% 112.5px auto;
+    gap: 10px;
     background-color: #A50113;
     border: 2px solid #FFFBF2;
 }
@@ -61,46 +69,65 @@ body {
 }
 
 .player1deck {
-    grid-column: 4;
+    grid-column: 2;
     grid-row: 2;
     background-color: aqua;
 }
 
 .player2deck {
-    grid-column: 4;
-    grid-row: 10;
+    grid-column: 2;
+    grid-row: 8;
     background-color: aqua;
     
 }
 
-.player1warzone {
-    grid-column: 2;
-    grid-row: 6;
-    background-color: aqua;
-}
-
-.player2warzone {
-    grid-column: 6;
-    grid-row: 6;
-    background-color: aqua;
-}
-
 .player1mat{
-    grid-column: 4;
-    grid-row: 5;
+    grid-column: 2;
+    grid-row: 4;
     background-color: aqua
 }
 
 .player2mat{
-    grid-column: 4;
-    grid-row: 7;
+    grid-column: 2;
+    grid-row: 6;
     background-color: aqua;
 
 }
 
+
 li, a{
     text-decoration: none;
     color: #A50113;
+}
+
+@media only screen and (max-width: 768px) {
+    .main_container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 100px 746px 50px;
+        grid-template-areas: "header"
+                             "maingame"
+                             "footer";
+    }
+
+
+    .navbar1 {
+        display: flex;
+        flex-direction: column;
+    }
+    
+
+    .main {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100%; 
+    }
+    
+    #imagemain {
+        max-width: 100%; 
+        max-height: 100%; 
+    }
 }
 
 
