@@ -6,12 +6,9 @@ body {
 }
 
 .main_container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 50px 1000px 50px;
-    grid-template-areas: "header"
-                         "maingame"
-                         "footer";
+    display: flex;
+    flex-direction: column;
+    
 }
 
 .header{
@@ -31,15 +28,17 @@ body {
     
 }
 
-.maingame {
-    grid-area: maingame; 
+.game-container{
+    margin: 0;
+    background-color: #484646;
     display: grid;
-    grid-template-columns: auto 75px auto;
-    grid-template-rows: auto 112.5px 5% 112.5px 5% 112.5px 5% 112.5px auto;
-    gap: 10px;
-    background-color: #A50113;
-    border: 2px solid #FFFBF2;
+    grid-template-rows: 7rem 2rem 7rem;
+    gap: .5rem;
+    cursor: pointer;
+    justify-content: center;
+    padding-top: 1rem;
 }
+
 
 .footer {
     grid-area: footer;
@@ -65,33 +64,8 @@ body {
 }
 
 .logo {
+    display: flex;
     align-items: center;
-}
-
-.player1deck {
-    grid-column: 2;
-    grid-row: 2;
-    background-color: aqua;
-}
-
-.player2deck {
-    grid-column: 2;
-    grid-row: 8;
-    background-color: aqua;
-    
-}
-
-.player1mat{
-    grid-column: 2;
-    grid-row: 4;
-    background-color: aqua
-}
-
-.player2mat{
-    grid-column: 2;
-    grid-row: 6;
-    background-color: aqua;
-
 }
 
 
@@ -99,6 +73,70 @@ li, a{
     text-decoration: none;
     color: #A50113;
 }
+
+.deck {
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    border-radius: .5rem;
+    color: white;
+    user-select: none;
+  }
+
+  .player1-deck{
+    background-color: rgb(206, 9, 9);
+  }
+
+  .player2-deck{
+    background-color: rgb(0, 76, 255);
+  }
+  .text {
+    grid-column: span 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .card {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: .5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+  }
+
+  .card.red {
+    color: red;
+  }
+  
+  .card.black {
+    color: black;
+  }
+  
+  .card::before,
+  .card::after {
+    position: absolute;
+    content: attr(data-value);
+    font-size: 1rem;
+  }
+  
+  .card::before {
+    top: .5rem;
+    left: .5rem
+  }
+  
+  .card::after {
+    bottom: .5rem;
+    right: .5rem;
+    transform: rotate(180deg);
+  }
 
 @media only screen and (max-width: 768px) {
     .main_container {
@@ -123,11 +161,17 @@ li, a{
         align-items: center;
         height: 100%; 
     }
+
+    .logo{
+        padding-top: 50%;
+    }
     
     #imagemain {
         max-width: 100%; 
         max-height: 100%; 
     }
+
+    
 }
 
 
