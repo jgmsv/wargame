@@ -55,7 +55,7 @@ function giveCards(deck, player1Hand, player2Hand){
     player2Hand.push(...deck.slice(halfDeck, deck.length));
 }
 
-function playGame() {
+function playGame() { 
     shuffleDeck(fullDeck);
     giveCards(fullDeck, player1Hand, player2Hand);
     while (player1Hand.length > 0 && player2Hand.length > 0) {
@@ -64,8 +64,7 @@ function playGame() {
         let currentCard2 = player2Hand.shift();
         let value1 = cardValue[currentCard1.value];
         let value2 = cardValue[currentCard2.value];
-        console.log(player1Hand.length);
-        console.log(player2Hand.length);
+        
 
         if(value1 > value2){
             player1Hand.push(currentCard1, currentCard2);
@@ -74,16 +73,19 @@ function playGame() {
         } else{
             tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards);
         }
+        console.log("player1", player1Hand.length, player1Hand);
+        console.log("player2",player2Hand.length, player2Hand);
         winGame(player1Hand, player2Hand);
+        
     }
 }
 
 function tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards){
-    if(player1Hand.length <= 3){
+    if(player1Hand.length <= 4){ //
         console.log("player 2 wins");
         return;
     }
-    if(player2Hand.length <= 3){
+    if(player2Hand.length <= 4){
         console.log("player 1 wins");
         return;
     }
@@ -94,11 +96,11 @@ function tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value
     currentCard2 = player1Hand.shift();
     value1 = cardValue[currentCard1.value];
     value2 = cardValue[currentCard2.value];
-
+    console.log(pileCards);
     if(value1 > value2){
-        player1Hand.push(currentCard1, currentCard2);
+        player1Hand.push(...pileCards, currentCard1, currentCard2);
     } else if(value1 < value2){
-        player2Hand.push(currentCard1, currentCard2);
+        player2Hand.push(...pileCards, currentCard1, currentCard2);
     } else{
         tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards);
     }
