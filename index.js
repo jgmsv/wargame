@@ -1,3 +1,6 @@
+// Fazer um refresh das cartas para um novo jogo
+
+
 const suit = ["♠", "♣", "♥", "♦"];
 const value = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 const cardValue = {
@@ -114,3 +117,17 @@ function winGame(player1Hand, player2Hand){
     }
 }
 
+
+const startingDeck = document.createElement("div");
+startingDeck.classList.add('players-deck', 'deck', 'startingDeck'); 
+
+const player2Deck = document.querySelector('.player2-deck');
+const player1Deck = document.querySelector('.player1-deck');
+player2Deck.parentNode.insertBefore(startingDeck, player2Deck);
+
+function invisible(){
+    player1Deck.style.visibility = 'hidden';
+    player2Deck.style.visibility = 'hidden';
+}
+
+//startingDeck.classList.remove('players-deck', 'deck', 'startingDeck'); 
