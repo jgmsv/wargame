@@ -1,5 +1,43 @@
-// Fazer um refresh das cartas para um novo jogo
 
+const startingDeck = document.createElement("div");
+startingDeck.classList.add('players-deck', 'deck', 'startingDeck'); 
+
+const player2Deck = document.querySelector('.player2-deck');
+const player1Deck = document.querySelector('.player1-deck');
+player2Deck.parentNode.insertBefore(startingDeck, player2Deck);
+
+invisible();
+
+
+
+function takeTurn(){
+    visible();
+    startingDeck.classList.remove('players-deck', 'deck', 'startingDeck');
+    if (player1Hand.length > 0 && player2Hand.length > 0) {
+        let pileCards = [];
+        let currentCard1 = player1Hand.shift();
+        let currentCard2 = player2Hand.shift();
+        let value1 = cardValue[currentCard1.value];
+        let value2 = cardValue[currentCard2.value];
+
+        if (value1 > value2) {
+            player1Hand.push(currentCard1, currentCard2);
+        } else if (value1 < value2) {
+            player2Hand.push(currentCard1, currentCard2);
+        } else {
+            tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards);
+        }
+        console.log("player1", player1Hand.length, player1Hand);
+        console.log("player2", player2Hand.length, player2Hand);
+        winGame(player1Hand, player2Hand);
+    } else {
+        winGame(player1Hand, player2Hand);
+    }
+}
+
+
+const turnButton = document.querySelector("button");
+turnButton.addEventListener("click", takeTurn);
 
 const suit = ["♠", "♣", "♥", "♦"];
 const value = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
@@ -58,30 +96,24 @@ function giveCards(deck, player1Hand, player2Hand){
     player2Hand.push(...deck.slice(halfDeck, deck.length));
 }
 
-function playGame() { 
+function invisible(){
+    player1Deck.style.visibility = 'hidden';
+    player2Deck.style.visibility = 'hidden';
+}
+function visible(){
+    player1Deck.style.visibility = 'visible';
+    player2Deck.style.visibility = 'visible';
+}
+
+
+
+function playGame() {
     shuffleDeck(fullDeck);
     giveCards(fullDeck, player1Hand, player2Hand);
-    while (player1Hand.length > 0 && player2Hand.length > 0) {
-        let pileCards = [];
-        let currentCard1 = player1Hand.shift();
-        let currentCard2 = player2Hand.shift();
-        let value1 = cardValue[currentCard1.value];
-        let value2 = cardValue[currentCard2.value];
-        
-
-        if(value1 > value2){
-            player1Hand.push(currentCard1, currentCard2);
-        } else if(value1 < value2){
-            player2Hand.push(currentCard1, currentCard2);
-        } else{
-            tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards);
-        }
-        console.log("player1", player1Hand.length, player1Hand);
-        console.log("player2",player2Hand.length, player2Hand);
-        winGame(player1Hand, player2Hand);
-        
-    }
+    
 }
+
+playGame();
 
 function tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards){
     if(player1Hand.length <= 4){ //
@@ -116,18 +148,3 @@ function winGame(player1Hand, player2Hand){
         console.log("player 1 wins");
     }
 }
-
-
-const startingDeck = document.createElement("div");
-startingDeck.classList.add('players-deck', 'deck', 'startingDeck'); 
-
-const player2Deck = document.querySelector('.player2-deck');
-const player1Deck = document.querySelector('.player1-deck');
-player2Deck.parentNode.insertBefore(startingDeck, player2Deck);
-
-function invisible(){
-    player1Deck.style.visibility = 'hidden';
-    player2Deck.style.visibility = 'hidden';
-}
-
-//startingDeck.classList.remove('players-deck', 'deck', 'startingDeck'); 
