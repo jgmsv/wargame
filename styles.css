@@ -14,8 +14,11 @@ html{
     display: flex;
     flex-direction: column;
     height: 100%;
-    
-    
+}
+
+#imagemain {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .header{
@@ -26,33 +29,7 @@ html{
 .header {
     font-size: 20px;
     grid-area: header;
-}
-
-.main{
-    background-color: #484646;
-    display: flex;
-    padding: auto;
-    
-}
-
-.game-container{
-    margin: 0;
-    background-color: white;
-    display: grid;
-    grid-template-columns: 0.5fr 0.5fr repeat(3, minmax(0, 1fr)) 0.5fr  0.5fr;
-    grid-template-rows: 0.5fr repeat(2, minmax(0, 1fr)) 0.5fr;
-    gap: .5rem;
-    justify-content: center;
-    padding-top: 1rem;
-    flex-grow: 1;
-}
-
-
-.footer {
-    grid-area: footer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 0.5em;
 }
 
 .navbar1 {
@@ -69,6 +46,59 @@ html{
 
 .navbar1 li a:hover {
     color: #FFFBF2;
+}
+
+.main{
+    background-color: #484646;
+    display: flex;
+    padding: auto;
+    
+}
+
+.game-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100vh;
+    background-color: white;
+}
+
+.head-flex{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    }
+    
+    .deck-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    }
+    
+    .slot-flex{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    
+    }
+    
+    .score-flex{
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+    }
+
+
+.footer {
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    border-radius: 0.5em;
+    background-color: 232323;
+    z-index: 1;
 }
 
 .logo {
@@ -96,6 +126,35 @@ li, a{
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
+
+.p1stack {
+    width: 100px;
+    height: 150px;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    transform: rotateY(45deg);
+    background-image: url("./imgs/cards/BACK.png");
+    background-size: cover;
+  }
+  
+  .p1stack:nth-child(1) {
+    transform: rotateY(15deg) translateZ(0px);
+  }
+  
+  .p1stack:nth-child(2) {
+    transform: rotateY(15deg) translateZ(-10px);
+  }
+  
+  .p1stack:nth-child(3) {
+    transform: rotateY(15deg) translateZ(-20px);
+  }
+  
+  .p1stack:nth-child(4) {
+    transform: rotateY(15deg) translateZ(-30px);
+  }
 
 .player2-deck{
     box-sizing: border-box;
@@ -585,6 +644,13 @@ li, a{
                              "footer";
     }
 
+    .header {
+        height: 50px;
+    }
+
+    .footer {
+        height: 50px;
+    }
 
     .navbar1 {
         display: flex;
@@ -640,9 +706,14 @@ li, a{
     }
   }
   
-  @for $i from 1 through 8 {
-    .card:nth-child(#{$i}n) {
-      top: $i * 20px;
-    }
-  }
+  /*Header effect*/
+  @keyframes sparkle {
+    0% { color: red; }
+    50% { color: yellow; }
+    100% { color: red; }
+}
+
+.sparkling {
+    animation: sparkle 1s infinite;
+}
 

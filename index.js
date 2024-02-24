@@ -22,15 +22,13 @@ const fullDeck = freshDeck();
 let player1Hand = [];
 let player2Hand = [];
 
-const startingDeck = document.createElement("div");
+const startingDeck = document.querySelector('.startingDeck');
 startingDeck.addEventListener("click", takeTurn);
-startingDeck.classList.add('players-deck', 'deck', 'startingDeck'); 
 
 const player2Deck = document.querySelector('.player2-deck');
 const player1Deck = document.querySelector('.player1-deck');
 player2Deck.addEventListener("click", takeTurn);
 player1Deck.addEventListener("click", takeTurn);
-player2Deck.parentNode.insertBefore(startingDeck, player2Deck);
 
 invisible();
 
@@ -38,6 +36,8 @@ invisible();
 
 function takeTurn(){
     visible();
+    updateScores();
+    removeTieEffect();
     startingDeck.classList.remove('players-deck', 'deck', 'startingDeck');
     if (player1Hand.length > 0 && player2Hand.length > 0) {
         let pileCards = [];
@@ -117,6 +117,7 @@ function playGame() {
 playGame();
 
 function tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards){
+    tieEffect();
     if(player1Hand.length <= 4){ //
         console.log("player 2 wins");
         return;
@@ -210,3 +211,19 @@ document.querySelector('.refreshbutton button').addEventListener('click', functi
     location.reload();
 });
 
+function updateScores(){
+    document.querySelector('.player1Score p').textContent = `P1-Cards: ${player1Hand.length}`;
+    document.querySelector('.player2Score p').textContent = `P2-Cards: ${player2Hand.length}`;
+}
+
+function tieEffect(){
+    var gameTitle = document.querySelector('.game-title');
+    gameTitle.textContent = "IT'S WAR TIME";
+    gameTitle.classList.add('sparkling');
+}
+
+function removeTieEffect(){
+    var gameTitle = document.querySelector('.game-title');
+    gameTitle.textContent = "WAR GAME";
+    gameTitle.classList.remove('sparkling');
+}
