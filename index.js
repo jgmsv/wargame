@@ -1,44 +1,4 @@
 
-const startingDeck = document.createElement("div");
-startingDeck.classList.add('players-deck', 'deck', 'startingDeck'); 
-
-const player2Deck = document.querySelector('.player2-deck');
-const player1Deck = document.querySelector('.player1-deck');
-player2Deck.parentNode.insertBefore(startingDeck, player2Deck);
-
-invisible();
-
-
-
-function takeTurn(){
-    visible();
-    startingDeck.classList.remove('players-deck', 'deck', 'startingDeck');
-    if (player1Hand.length > 0 && player2Hand.length > 0) {
-        let pileCards = [];
-        let currentCard1 = player1Hand.shift();
-        let currentCard2 = player2Hand.shift();
-        let value1 = cardValue[currentCard1.value];
-        let value2 = cardValue[currentCard2.value];
-
-        if (value1 > value2) {
-            player1Hand.push(currentCard1, currentCard2);
-        } else if (value1 < value2) {
-            player2Hand.push(currentCard1, currentCard2);
-        } else {
-            tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards);
-        }
-        console.log("player1", player1Hand.length, player1Hand);
-        console.log("player2", player2Hand.length, player2Hand);
-        winGame(player1Hand, player2Hand);
-    } else {
-        winGame(player1Hand, player2Hand);
-    }
-}
-
-
-const turnButton = document.querySelector("button");
-turnButton.addEventListener("click", takeTurn);
-
 const suit = ["♠", "♣", "♥", "♦"];
 const value = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
 const cardValue = {
@@ -62,6 +22,47 @@ const fullDeck = freshDeck();
 let player1Hand = [];
 let player2Hand = [];
 
+const startingDeck = document.createElement("div");
+startingDeck.addEventListener("click", takeTurn);
+startingDeck.classList.add('players-deck', 'deck', 'startingDeck'); 
+
+const player2Deck = document.querySelector('.player2-deck');
+const player1Deck = document.querySelector('.player1-deck');
+player2Deck.addEventListener("click", takeTurn);
+player1Deck.addEventListener("click", takeTurn);
+player2Deck.parentNode.insertBefore(startingDeck, player2Deck);
+
+invisible();
+
+
+
+function takeTurn(){
+    visible();
+    startingDeck.classList.remove('players-deck', 'deck', 'startingDeck');
+    if (player1Hand.length > 0 && player2Hand.length > 0) {
+        let pileCards = [];
+        let currentCard1 = player1Hand.shift();
+        let currentCard2 = player2Hand.shift();
+        let player1CardSlot = document.querySelector('.player1-card-slot');
+        let player2CardSlot = document.querySelector('.player2-card-slot');
+        setCardInCardSlot(player1CardSlot, player2CardSlot, currentCard1, currentCard2)
+        let value1 = cardValue[currentCard1.value];
+        let value2 = cardValue[currentCard2.value];
+
+        if (value1 > value2) {
+            player1Hand.push(currentCard1, currentCard2);
+        } else if (value1 < value2) {
+            player2Hand.push(currentCard1, currentCard2);
+        } else {
+            tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards);
+        }
+        console.log("player1", player1Hand.length, player1Hand);
+        console.log("player2", player2Hand.length, player2Hand);
+        winGame(player1Hand, player2Hand);
+    } else {
+        winGame(player1Hand, player2Hand);
+    }
+}
 
 function Card(suit, value) {
     return {
@@ -148,3 +149,64 @@ function winGame(player1Hand, player2Hand){
         console.log("player 1 wins");
     }
 }
+
+//Visualization
+
+function createCard(card, slot){
+    const cardSlot = document.querySelector(`.${slot}`);
+    cardSlot.innerHTML = '';
+    const cardDiv = document.createElement("div");
+    cardDiv.classList.add('card');
+    cardDiv.dataset.suit = card.suit;
+    cardDiv.dataset.value = card.value;
+
+    createPips(card, cardDiv);
+    
+    const cornerNumberTop = document.createElement("div");
+    cornerNumberTop.classList.add('corner-number', 'top');
+    cornerNumberTop.innerHTML = `${card.value}<span>${card.suit}</span>`;
+    cardDiv.appendChild(cornerNumberTop);
+
+    const cornerNumberBottom = document.createElement("div");
+    cornerNumberBottom.classList.add('corner-number', 'bottom');
+    cornerNumberBottom.innerHTML = `${card.value}<span>${card.suit}</span>`;
+    cardDiv.appendChild(cornerNumberBottom);
+
+    if (card.suit === '♥' || card.suit === '♦') {
+        cardDiv.style.color = 'red';
+    }
+
+    cardSlot.appendChild(cardDiv);
+}
+
+
+function setCardInCardSlot(player1CardSlot, player2CardSlot, currentCard1, currentCard2){
+
+    createCard(currentCard1, 'player1-card-slot');
+    createCard(currentCard2, 'player2-card-slot');
+}
+
+
+function createPips(card, cardDiv){
+    if(card.value === 'A' || card.value === 'J' || card.value === 'Q' || card.value === 'K'){
+        numPips = 1;
+        const pip = document.createElement("div");
+        pip.classList.add('pip');
+        pip.textContent = card.suit;
+        cardDiv.appendChild(pip);
+    } else {
+        numPips = parseInt(card.value);
+        for (let i = 0; i < numPips; i++) {
+    
+            const pip = document.createElement("div");
+            pip.classList.add('pip');
+            pip.textContent = card.suit;
+            cardDiv.appendChild(pip)
+    }   
+}
+}
+
+document.querySelector('.refreshbutton button').addEventListener('click', function() {
+    location.reload();
+});
+

@@ -42,7 +42,6 @@ html{
     grid-template-columns: 0.5fr 0.5fr repeat(3, minmax(0, 1fr)) 0.5fr  0.5fr;
     grid-template-rows: 0.5fr repeat(2, minmax(0, 1fr)) 0.5fr;
     gap: .5rem;
-    cursor: pointer;
     justify-content: center;
     padding-top: 1rem;
     flex-grow: 1;
@@ -95,6 +94,7 @@ li, a{
     height: 150px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 .player2-deck{
@@ -109,6 +109,7 @@ li, a{
     height: 150px;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
 
 .startingDeck {
@@ -124,7 +125,11 @@ li, a{
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
 }
+
+
+
 
 .player1-card-slot{
     box-sizing: border-box;
@@ -148,6 +153,52 @@ li, a{
     position: relative;
 }
 
+.buttons{
+    display: flex;
+    grid-column: 4;
+    grid-row: 3;
+    text-align: center;
+    text-decoration: none;
+}
+
+.refreshbutton button:hover {
+    background-color: #f00;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.refreshbutton button{
+    color: #FFFBF2;
+    background-color: #A50113;
+    border-radius: 15px;
+    transition: background-color 0.5s ease;
+}
+
+.buttons{
+    display: flex;
+    grid-column: 4;
+    grid-row: 3;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+
+
+
+/* Cards design */
+
 .card {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
@@ -156,7 +207,6 @@ li, a{
     box-sizing: border-box;
     padding-top: 5px;
     padding-bottom: 5px;
-    margin: 10px;
     border-color: black;
     border-style: solid;
     border-radius: .50em;
@@ -183,6 +233,10 @@ li, a{
     transform: rotate(180deg);
 }
 
+.card[data-value="9"] .bottom, .card[data-value="10"] .bottom{
+    grid-row: 8 / 10
+}
+
 .corner-number{
     font-size: 20px;
 }
@@ -194,27 +248,331 @@ li, a{
 
 .pip {
     text-align: center;
-    font-size: 40px;
+    font-size: 1em;
 }
 
-.buttons{
-    display: grid;
-    grid-column: 4;
-    grid-row: 3;
-    grid-template-columns: 0.25fr 1fr 0.25fr  1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
+.card[data-value="2"] .pip:first-child {
+    grid-column: 3;
+    grid-row: 2;
 }
 
-.turnbutton{
-    grid-column: 1/3;
-    grid-row: 1;
+.card[data-value="2"] .pip:nth-child(2) {
+    grid-column: 3;
+    grid-row: 6;
+    transform: rotate(180deg);
 }
 
-.refreshbutton{
+.card[data-value="3"] .pip:first-child {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.card[data-value="3"] .pip:nth-child(2) {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="3"] .pip:nth-child(3) {
+    grid-column: 3;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="4"] .pip:first-child {
     grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="4"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="4"] .pip:nth-child(3) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="4"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="5"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="5"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="5"] .pip:nth-child(3) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="5"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="5"] .pip:nth-child(5) {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="6"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="6"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.card[data-value="6"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="6"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="6"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="6"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="7"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+[data-value="7"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+[data-value="7"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="7"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="7"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="7"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="7"] .pip:nth-child(7) {
+    grid-column: 3;
     grid-row: 3;
 }
 
+.card[data-value="8"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="8"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.card[data-value="8"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="8"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="8"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="8"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="8"] .pip:nth-child(7) {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.card[data-value="8"] .pip:nth-child(8) {
+    grid-column: 3;
+    grid-row: 5;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="9"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.card[data-value="9"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"] .pip:nth-child(4) {
+    grid-column: 2;
+    grid-row: 8;
+    transform: rotate(180deg);
+}
+
+.card.card[data-value="9"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="9"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="9"] .pip:nth-child(7) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"] .pip:nth-child(8) {
+    grid-column: 4;
+    grid-row: 8;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"] .pip:nth-child(9) {
+    grid-column: 3;
+    grid-row: 5;
+}
+
+.card[data-value="10"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="10"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.card[data-value="10"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="10"] .pip:nth-child(4) {
+    grid-column: 2;
+    grid-row: 8;
+    transform: rotate(180deg);
+}
+
+.card[data-value="10"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="10"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="10"] .pip:nth-child(7) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="10"] .pip:nth-child(8) {
+    grid-column: 4;
+    grid-row: 8;
+    transform: rotate(180deg);
+}
+
+.card[data-value="10"] .pip:nth-child(9) {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.card[data-value="10"] .pip:nth-child(10) {
+    grid-column: 3;
+    grid-row: 7;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"], .card[data-value="10"] {
+    grid-template-rows: 0.5fr repeat(7, minmax(0, 1fr)) 0.5fr;
+}
+
+.card[data-value="J"] .pip:first-child {
+    content: url("imgs/jack-black.svg");
+    transform: scale(2);
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="Q"] .pip:first-child {
+    content: url("imgs/queen-black.svg");
+    transform: scale(2);
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="K"] .pip:first-child {
+    content: url("./imgs/king-black.svg");
+    transform: scale(2);
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="A"] .pip:first-child {
+    grid-column: 3;
+    grid-row: 4;
+    font-size: 90px;
+}
 
 
 @media only screen and (max-width: 768px) {
@@ -249,8 +607,42 @@ li, a{
         max-width: 100%; 
         max-height: 100%; 
     }
-
-    
 }
-
+/* Rules */
+.wrapper {
+    margin-top: 100px;
+    padding-top: 150px;
+    padding-bottom: 1000px;
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+      Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  
+  .rule {
+    top: 30px;
+    position: sticky;
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    color: #333;
+    padding: 40px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  
+    h2 {
+      padding: 0;
+    }
+    span {
+      display: block;
+      font-size: 14px;
+      color: #A50113;
+    }
+  }
+  
+  @for $i from 1 through 8 {
+    .card:nth-child(#{$i}n) {
+      top: $i * 20px;
+    }
+  }
 
