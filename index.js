@@ -24,6 +24,7 @@ let player2Hand = [];
 
 const startingDeck = document.querySelector('.startingDeck');
 startingDeck.addEventListener("click", takeTurn);
+startingDeck.addEventListener("click", removeStartingDeck);
 
 const player2Deck = document.querySelector('.player2-deck');
 const player1Deck = document.querySelector('.player1-deck');
@@ -33,12 +34,12 @@ player1Deck.addEventListener("click", takeTurn);
 invisible();
 
 
-
 function takeTurn(){
+
     visible();
     updateScores();
     removeTieEffect();
-    startingDeck.classList.remove('players-deck', 'deck', 'startingDeck');
+    
     if (player1Hand.length > 0 && player2Hand.length > 0) {
         let pileCards = [];
         let currentCard1 = player1Hand.shift();
@@ -110,15 +111,15 @@ function visible(){
 
 function playGame() {
     shuffleDeck(fullDeck);
-    giveCards(fullDeck, player1Hand, player2Hand);
-    
+    giveCards(fullDeck, player1Hand, player2Hand);  
 }
 
 playGame();
 
 function tie(player1Hand, player2Hand, currentCard1, currentCard2, value1, value2, pileCards){
     tieEffect();
-    if(player1Hand.length <= 4){ //
+    appendPileEffectOnPlayerSlot();
+    if(player1Hand.length <= 4){ 
         console.log("player 2 wins");
         return;
     }
@@ -217,13 +218,18 @@ function updateScores(){
 }
 
 function tieEffect(){
-    var gameTitle = document.querySelector('.game-title');
+    const gameTitle = document.querySelector('.game-title');
     gameTitle.textContent = "IT'S WAR TIME";
     gameTitle.classList.add('sparkling');
 }
 
 function removeTieEffect(){
-    var gameTitle = document.querySelector('.game-title');
+    const gameTitle = document.querySelector('.game-title');
     gameTitle.textContent = "WAR GAME";
     gameTitle.classList.remove('sparkling');
+}
+
+function removeStartingDeck(){
+    const startingDeck = document.querySelector('.startingDeck');
+    startingDeck.remove();
 }
