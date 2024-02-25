@@ -3,15 +3,22 @@
 body {
     margin: 0;
     background-color: #232323;
+    height: 100%;
+}
+
+html{
+    height: 100%;
 }
 
 .main_container {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 50px 1000px 50px;
-    grid-template-areas: "header"
-                         "maingame"
-                         "footer";
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+#imagemain {
+    max-width: 100%;
+    max-height: 100%;
 }
 
 .header{
@@ -22,30 +29,7 @@ body {
 .header {
     font-size: 20px;
     grid-area: header;
-}
-
-.main{
-    background-color: #484646;
-    display: flex;
-    padding: auto;
-    
-}
-
-.maingame {
-    grid-area: maingame; 
-    display: grid;
-    grid-template-columns: auto 75px auto;
-    grid-template-rows: auto 112.5px 5% 112.5px 5% 112.5px 5% 112.5px auto;
-    gap: 10px;
-    background-color: #A50113;
-    border: 2px solid #FFFBF2;
-}
-
-.footer {
-    grid-area: footer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 0.5em;
 }
 
 .navbar1 {
@@ -64,34 +48,63 @@ body {
     color: #FFFBF2;
 }
 
-.logo {
-    align-items: center;
+.main{
+    background-color: #484646;
+    display: flex;
+    padding: auto;
 }
 
-.player1deck {
-    grid-column: 2;
-    grid-row: 2;
-    background-color: aqua;
+.centered {
+    font-weight: bold;
+    font-size: 80px;
+    font-family: 'Montserrat', sans-serif;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: all 0.3s ease 0s;
+  }
+
+.centered:hover{
+    color: #FFFBF2;
 }
 
-.player2deck {
-    grid-column: 2;
-    grid-row: 8;
-    background-color: aqua;
+.game-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100vh;
+    background-color: white;
+}
+
+.head-flex{
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+}
     
+.deck-flex, .slot-flex, .score-flex{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }
 
-.player1mat{
-    grid-column: 2;
-    grid-row: 4;
-    background-color: aqua
+.footer {
+    grid-area: footer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: sticky;
+    bottom: 0;
+    border-radius: 0.5em;
+    background-color: 232323;
+    z-index: 1;
 }
 
-.player2mat{
-    grid-column: 2;
-    grid-row: 6;
-    background-color: aqua;
-
+.logo {
+    display: flex;
+    align-items: center;
 }
 
 
@@ -99,6 +112,512 @@ li, a{
     text-decoration: none;
     color: #A50113;
 }
+
+.p1stack {
+    width: 100px;
+    height: 150px;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+    transform: rotateY(45deg);
+    background-image: url("./imgs/cards/BACK.png");
+    background-size: cover;
+  }
+  
+  .p1stack:nth-child(1) {
+    transform: rotateY(15deg) translateZ(0px);
+  }
+  
+  .p1stack:nth-child(2) {
+    transform: rotateY(15deg) translateZ(-10px);
+  }
+  
+  .p1stack:nth-child(3) {
+    transform: rotateY(15deg) translateZ(-20px);
+  }
+  
+  .p1stack:nth-child(4) {
+    transform: rotateY(15deg) translateZ(-30px);
+  }
+
+  .player1-deck, .player2-deck, .startingDeck{
+    box-sizing: border-box;
+    border: 0.5px solid black;
+    border-radius: 0.5em;
+    background-image: url("./imgs/cards/BACK.png");
+    background-size: cover;
+    width: 100px; 
+    height: 150px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+}
+
+.player1-card-slot{
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 0.5em;
+    grid-column: 3;
+    grid-row: 3;
+    width: 100px;
+    height: 150px;
+    position: relative;
+}
+
+.player2-card-slot{
+    box-sizing: border-box;
+    border: 2px solid black;
+    border-radius: 0.5em;
+    width: 100px;
+    height: 150px;
+    position: relative;
+}
+
+.buttons{
+    display: flex;
+    grid-column: 4;
+    grid-row: 3;
+    text-align: center;
+    text-decoration: none;
+}
+
+.refreshbutton button:hover {
+    background-color: #f00;
+    animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.1);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+.refreshbutton button{
+    color: #FFFBF2;
+    background-color: #A50113;
+    border-radius: 15px;
+    transition: background-color 0.5s ease;
+}
+
+.buttons{
+    display: flex;
+    grid-column: 4;
+    grid-row: 3;
+    text-align: center;
+    text-decoration: none;
+}
+
+
+
+
+
+/* Cards design */
+
+.card {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: 0.5fr repeat(5, minmax(0, 1fr)) 0.5fr;
+    border: 0.5px solid black;
+    box-sizing: border-box;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-color: black;
+    border-style: solid;
+    border-radius: .50em;
+    box-shadow: 10px 5px 5px black;
+    width: 100px;
+    height: 150px;
+    align-items: center;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    align-self: start;
+    grid-column: 1;
+    grid-row: 1 / 3;
+}
+
+.bottom {
+    grid-column: 5;
+    grid-row: 6 / 8;
+    text-align: center;
+    align-self: end;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"] .bottom, .card[data-value="10"] .bottom{
+    grid-row: 8 / 10
+}
+
+.corner-number{
+    font-size: 20px;
+}
+
+.corner-number > span {
+    display: block;
+    font-size: small;
+}
+
+.pip {
+    text-align: center;
+    font-size: 1em;
+}
+
+.card[data-value="2"] .pip:first-child {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.card[data-value="2"] .pip:nth-child(2) {
+    grid-column: 3;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="3"] .pip:first-child {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.card[data-value="3"] .pip:nth-child(2) {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="3"] .pip:nth-child(3) {
+    grid-column: 3;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="4"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="4"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="4"] .pip:nth-child(3) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="4"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="5"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="5"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="5"] .pip:nth-child(3) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="5"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="5"] .pip:nth-child(5) {
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="6"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="6"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.card[data-value="6"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="6"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="6"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="6"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="7"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+[data-value="7"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+[data-value="7"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="7"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="7"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="7"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="7"] .pip:nth-child(7) {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.card[data-value="8"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="8"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.card[data-value="8"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="8"] .pip:nth-child(4) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="8"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="8"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="8"] .pip:nth-child(7) {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.card[data-value="8"] .pip:nth-child(8) {
+    grid-column: 3;
+    grid-row: 5;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="9"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.card[data-value="9"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"] .pip:nth-child(4) {
+    grid-column: 2;
+    grid-row: 8;
+    transform: rotate(180deg);
+}
+
+.card.card[data-value="9"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="9"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="9"] .pip:nth-child(7) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"] .pip:nth-child(8) {
+    grid-column: 4;
+    grid-row: 8;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"] .pip:nth-child(9) {
+    grid-column: 3;
+    grid-row: 5;
+}
+
+.card[data-value="10"] .pip:first-child {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.card[data-value="10"] .pip:nth-child(2) {
+    grid-column: 2;
+    grid-row: 4;
+}
+
+.card[data-value="10"] .pip:nth-child(3) {
+    grid-column: 2;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="10"] .pip:nth-child(4) {
+    grid-column: 2;
+    grid-row: 8;
+    transform: rotate(180deg);
+}
+
+.card[data-value="10"] .pip:nth-child(5) {
+    grid-column: 4;
+    grid-row: 2;
+}
+
+.card[data-value="10"] .pip:nth-child(6) {
+    grid-column: 4;
+    grid-row: 4;
+}
+
+.card[data-value="10"] .pip:nth-child(7) {
+    grid-column: 4;
+    grid-row: 6;
+    transform: rotate(180deg);
+}
+
+.card[data-value="10"] .pip:nth-child(8) {
+    grid-column: 4;
+    grid-row: 8;
+    transform: rotate(180deg);
+}
+
+.card[data-value="10"] .pip:nth-child(9) {
+    grid-column: 3;
+    grid-row: 3;
+}
+
+.card[data-value="10"] .pip:nth-child(10) {
+    grid-column: 3;
+    grid-row: 7;
+    transform: rotate(180deg);
+}
+
+.card[data-value="9"], .card[data-value="10"] {
+    grid-template-rows: 0.5fr repeat(7, minmax(0, 1fr)) 0.5fr;
+}
+
+.card[data-value="J"] .pip:first-child {
+    content: url("imgs/jack-black.svg");
+    transform: scale(2);
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="Q"] .pip:first-child {
+    content: url("imgs/queen-black.svg");
+    transform: scale(2);
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="K"][data-suit="♥"] .pip:first-child{
+    content: url("./imgs/king-black-red.svg");
+}
+
+.card[data-value="K"][data-suit="♦"] .pip:first-child{
+    content: url("./imgs/king-black-red.svg");
+}
+
+.card[data-value="Q"][data-suit="♥"] .pip:first-child{
+    content: url("./imgs/queen-black-red.svg");
+}
+
+.card[data-value="Q"][data-suit="♦"] .pip:first-child{
+    content: url("./imgs/queen-black-red.svg");
+} 
+.card[data-value="J"][data-suit="♥"] .pip:first-child{
+    content: url("./imgs/jack-black-red.svg");
+}
+.card[data-value="J"][data-suit="♦"] .pip:first-child {
+    content: url("./imgs/jack-black-red.svg");
+}
+
+.card[data-value="K"] .pip:first-child {
+    content: url("./imgs/king-black.svg");
+    transform: scale(2);
+    grid-column: 3;
+    grid-row: 4;
+}
+
+.card[data-value="A"] .pip:first-child {
+    grid-column: 3;
+    grid-row: 4;
+    font-size: 70px;
+}
+
 
 @media only screen and (max-width: 768px) {
     .main_container {
@@ -110,6 +629,13 @@ li, a{
                              "footer";
     }
 
+    .header {
+        height: 50px;
+    }
+
+    .footer {
+        height: 50px;
+    }
 
     .navbar1 {
         display: flex;
@@ -123,11 +649,84 @@ li, a{
         align-items: center;
         height: 100%; 
     }
+
+    .logo{
+        padding-top: 50%;
+    }
     
     #imagemain {
         max-width: 100%; 
         max-height: 100%; 
     }
 }
+/* Rules */
+.wrapper {
+    margin-top: 100px;
+    padding-top: 150px;
+    padding-bottom: 1000px;
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+      Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+  
+  .rule {
+    top: 30px;
+    position: sticky;
+    border: 1px solid #ccc;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.1);
+    background-color: white;
+    color: #333;
+    padding: 40px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+  
+    h2 {
+      padding: 0;
+    }
+    span {
+      display: block;
+      font-size: 14px;
+      color: #A50113;
+    }
+  }
+  
+  /*Header effect*/
+  @keyframes sparkle {
+    0% { color: red; }
+    50% { color: yellow; }
+    100% { color: red; }
+}
 
+.sparkling {
+    animation: sparkle 1s infinite;
+}
+
+/* project */
+
+.project-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 100vh;
+    background-color: white;
+    flex-wrap: wrap;
+}
+.first-part{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.fp-img img{
+    border-radius: 50%;
+    border:  10px solid #FEDE00;
+    width: 300px;
+}
+
+.info, .info-p2, .info-p3{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
