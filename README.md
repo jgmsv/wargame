@@ -2,7 +2,8 @@
 
 ## Description
 
-This is a card game built with HTML, CSS, and JavaScript. [Provide a detailed description of the game, including the rules and how to win.]
+This is a card game built with HTML, CSS, and JavaScript.
+The rules are identified in the project.
 
 ## Installation
 
